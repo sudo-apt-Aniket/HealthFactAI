@@ -13,6 +13,9 @@ from app.utils import build_query, sha256
 from app.search import verified_search
 from app.extract import fetch_main_text
 from app.retrieve import chunk, bm25_rank, embed_rerank
+from app.quiz.schemas import QuizFromClaimRequest, QuizFromClaimResponse, QuizItem, GradeQuizRequest, GradeQuizResponse
+from app.quiz.service import build_context_from_search, generate_mcqs_llm_with_error, validate_mcqs
+from app.quiz.grader import grade
 
 app = FastAPI()
 app.add_middleware(
@@ -190,3 +193,33 @@ def search_verified(payload: SearchRequest):
             },
         },
     }
+
+
+@app.post("/quiz_from_claim", response_model=QuizFromClaimResponse)
+def quiz_from_claim(payload: QuizFromClaimRequest):
+    claim = (payload.claim or "").strip()
+    if not claim:
+        raise HTTPException(status_code=400, detail="Empty claim")
+    claim_hash = sha256(claim)
+
+    contexts = build_context_from_search(claim, top_urls=4, chars=1200)
+    if not contexts:
+        return {"status": "ok", "items": [], "meta": {"reason": "Insufficient context from allow-listed sources.", "claim_hash": claim_hash}}
+
+    items, llm_err = generate_mcqs_llm_with_error(contexts, claim, payload.num_questions, payload.difficulty, payload.style)
+    print("items", items)
+    validated = validate_mcqs(items, contexts)
+    print("validated", validated)
+    print("len(contexts)", len(contexts))
+    if not validated:
+        return {"status": "ok", "items": [], "meta": {"reason": "LLM returned no valid items after validation.", "claim_hash": claim_hash, "sources_used": len(contexts), "llm_error": llm_err}}
+
+    # Cap to requested number
+    validated = validated[: payload.num_questions]
+    return {"status": "ok", "items": validated, "meta": {"claim_hash": claim_hash, "sources_used": len(contexts)}}
+
+
+@app.post("/grade_quiz", response_model=GradeQuizResponse)
+def grade_quiz(payload: GradeQuizRequest):
+    result = grade(payload.answers, payload.key)
+    return result
