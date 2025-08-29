@@ -16,6 +16,8 @@ from app.retrieve import chunk, bm25_rank, embed_rerank
 from app.quiz.schemas import QuizFromClaimRequest, QuizFromClaimResponse, QuizItem, GradeQuizRequest, GradeQuizResponse
 from app.quiz.service import build_context_from_search, generate_mcqs_llm_with_error, validate_mcqs
 from app.quiz.grader import grade
+from datetime import datetime, date, timedelta as dt_timedelta
+import json
 
 app = FastAPI()
 app.add_middleware(
@@ -223,3 +225,9 @@ def quiz_from_claim(payload: QuizFromClaimRequest):
 def grade_quiz(payload: GradeQuizRequest):
     result = grade(payload.answers, payload.key)
     return result
+
+
+from routers.user_facts import router as user_facts_router
+
+# Mount router for user facts/streaks
+app.include_router(user_facts_router)
