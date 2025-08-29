@@ -10,6 +10,7 @@ from pages.quiz import render_quiz
 from pages.progress import render_progress
 from pages.admin import render_admin
 from utils.state import initialize_session_state, get_current_page
+from streamlit_helpers.user_integration import login_user, show_user_stats
 
 # Page configuration
 st.set_page_config(
@@ -32,6 +33,10 @@ st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 # Render header
 render_header()
+
+# Sidebar: auth + user stats
+login_user(sidebar=True)
+show_user_stats(sidebar=True)
 
 # Main page routing
 current_page = get_current_page()
