@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from .cache import TTLCache
-from .config import settings
+from .core.config import settings
 from .utils import is_allowed
 
 

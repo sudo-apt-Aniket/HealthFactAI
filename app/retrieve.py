@@ -5,7 +5,7 @@ import re
 
 from rank_bm25 import BM25Okapi
 
-from .config import settings
+from .core.config import settings
 import requests
 
 

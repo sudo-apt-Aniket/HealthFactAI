@@ -4,7 +4,7 @@ import json
 import re
 from typing import List, Dict
 
-from app.config import settings
+from app.core.config import settings
 from app.utils import sha256, is_allowed, build_query
 from app.search import verified_search
 from app.extract import fetch_main_text
