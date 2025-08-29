@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.api import check_health_claim, fetch_quiz_questions
+from streamlit_helpers.user_integration import save_fact_for_user, show_recent_facts
 
 def render_quiz() -> None:
     """Render the quiz page with health claim checker and quiz mode"""
@@ -13,6 +14,13 @@ def render_quiz() -> None:
                 st.success(f"Result: {result['result']}")
                 st.write(f"Explanation: {result['explanation']}")
                 st.markdown(f"[Trusted Source]({result['source']})")
+                # Offer to save verified claim to user's profile
+                save_fact_for_user(
+                    content=claim,
+                    category="claim-check",
+                    source_url=result.get("source"),
+                    button_label="✅ I learned this fact!",
+                )
             else:
                 st.error("Error connecting to backend or invalid claim.")
 
@@ -39,3 +47,6 @@ def render_quiz() -> None:
             # Reset quiz flag after rendering
             if st.session_state.get("start_quiz"):
                 st.session_state["start_quiz"] = False
+
+    # Recent facts after interactions
+    show_recent_facts(limit=6)

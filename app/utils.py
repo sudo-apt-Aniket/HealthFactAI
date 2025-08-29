@@ -5,7 +5,7 @@ import time
 from contextlib import contextmanager
 from urllib.parse import urlparse
 
-from .config import settings
+from .core.config import settings
 
 
 def is_allowed(url: str) -> bool:

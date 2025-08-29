@@ -6,7 +6,7 @@ from typing import Any
 import requests
 
 from .cache import TTLCache
-from .config import settings
+from .core.config import settings
 from .utils import is_allowed
 
 

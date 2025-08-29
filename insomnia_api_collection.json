@@ -1,0 +1,402 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-01-01T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_health_check",
+      "_type": "request",
+      "parentId": "fld_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/healthz",
+      "name": "Health Check",
+      "description": "Basic health check endpoint",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_api_health_check",
+      "_type": "request",
+      "parentId": "fld_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/health",
+      "name": "API Health Check",
+      "description": "API v1 health check endpoint",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_register",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/auth/register",
+      "name": "Register User",
+      "description": "Register a new user",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"testuser\",\n  \"password\": \"testpassword123\",\n  \"email\": \"test@example.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_login",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/auth/login",
+      "name": "Login User",
+      "description": "Login and get JWT token",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/x-www-form-urlencoded",
+        "params": [
+          {
+            "name": "username",
+            "value": "testuser"
+          },
+          {
+            "name": "password",
+            "value": "testpassword123"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_me",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/auth/me",
+      "name": "Get Current User",
+      "description": "Get current user info",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_progress",
+      "_type": "request",
+      "parentId": "fld_progress",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/progress/",
+      "name": "Get User Progress",
+      "description": "Get user's progress data",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_categories",
+      "_type": "request",
+      "parentId": "fld_progress",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/progress/categories",
+      "name": "Get Categories Breakdown",
+      "description": "Get user's categories breakdown",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_search",
+      "_type": "request",
+      "parentId": "fld_search",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/search/verify",
+      "name": "Search & Verify Claim",
+      "description": "Search and verify a health claim",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"claim\": \"Eating vegetables daily improves overall health\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_quiz_generate",
+      "_type": "request",
+      "parentId": "fld_quiz",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/quiz/generate",
+      "name": "Generate Quiz",
+      "description": "Generate quiz from health claim",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"claim\": \"Regular exercise improves cardiovascular health\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_quiz_submit",
+      "_type": "request",
+      "parentId": "fld_quiz",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "url": "{{ _.base_url }}/api/v1/quiz/submit",
+      "name": "Submit Quiz",
+      "description": "Submit and grade quiz answers",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"quiz_id\": \"quiz_1_1234\",\n  \"answers\": [\"True\", \"Clinical trials\", \"Nutrition\"]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1640995200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "fld_healthfactai",
+      "_type": "request_group",
+      "parentId": "wrk_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "HealthFactAI",
+      "description": "HealthFactAI API endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1640995200000
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "Authentication",
+      "description": "Authentication endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1640995200000
+    },
+    {
+      "_id": "fld_progress",
+      "_type": "request_group",
+      "parentId": "wrk_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "Progress",
+      "description": "Progress tracking endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1640995200000
+    },
+    {
+      "_id": "fld_search",
+      "_type": "request_group",
+      "parentId": "wrk_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "Search",
+      "description": "Search and verification endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1640995200000
+    },
+    {
+      "_id": "fld_quiz",
+      "_type": "request_group",
+      "parentId": "wrk_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "Quiz",
+      "description": "Quiz generation and grading endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1640995200000
+    },
+    {
+      "_id": "wrk_healthfactai",
+      "_type": "workspace",
+      "parentId": null,
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "HealthFactAI API",
+      "description": "HealthFactAI backend API collection",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_healthfactai",
+      "modified": 1640995200000,
+      "created": 1640995200000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8000",
+        "jwt_token": ""
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url", "jwt_token"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1640995200000
+    }
+  ]
+}

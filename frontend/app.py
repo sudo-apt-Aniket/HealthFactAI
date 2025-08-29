@@ -1,6 +1,10 @@
 import streamlit as st
-from styles.theme import initialize_theme, get_theme_colors
+
+# Import our modular components
+from config import PAGE_TITLE, PAGE_ICON, LAYOUT
+from styles.theme import initialize_theme
 from styles.components import generate_dynamic_css
+from utils.state import initialize_session_state, get_current_page, is_authenticated
 from components.header import render_header
 from pages.landing import render_landing
 from pages.auth import render_auth
@@ -9,26 +13,22 @@ from pages.categories import render_categories
 from pages.quiz import render_quiz
 from pages.progress import render_progress
 from pages.admin import render_admin
-from utils.state import initialize_session_state, get_current_page
 
 # Page configuration
 st.set_page_config(
-    page_title="HealthFactAI",
-    page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    page_title=PAGE_TITLE, 
+    page_icon=PAGE_ICON, 
+    layout=LAYOUT
 )
 
 # Initialize session state and theme
 initialize_session_state()
 initialize_theme()
 
-# Get current theme colors and generate CSS
+# Apply CSS with current theme colors
+from styles.theme import get_theme_colors
 colors = get_theme_colors()
-css = generate_dynamic_css(colors)
-
-# Apply CSS
-st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+st.markdown(generate_dynamic_css(colors), unsafe_allow_html=True)
 
 # Render header
 render_header()
